@@ -1,10 +1,8 @@
 #ifndef ATMESH_APP_WINDOW_H_
 #define ATMESH_APP_WINDOW_H_
 
-#include <atmesh/handles.h>
+#include "gfx.h"
 #include <stdbool.h>
-
-ATMESH_DECLARE_HANDLE(window);
 
 typedef struct window_create_info_s {
     int width;
@@ -14,6 +12,8 @@ typedef struct window_create_info_s {
 
 bool window_create(window_handle_t* window, window_create_info_t* info);
 void window_destroy(window_handle_t window);
+
+void* window_get_native_handle(window_handle_t window);
 
 bool window_should_close(window_handle_t window);
 void window_bind_opengl_context(window_handle_t window);
