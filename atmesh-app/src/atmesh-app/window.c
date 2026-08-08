@@ -52,6 +52,11 @@ void window_destroy(window_handle_t window) {
     glfwDestroyWindow(win->handle);
 }
 
+void* window_get_native_handle(window_handle_t window) {
+    window_t* win = (window_t*)window;
+    return win ? win->handle : NULL;
+}
+
 bool window_should_close(window_handle_t window) {
     window_t* win = (window_t*)window;
     return glfwWindowShouldClose(win->handle);
