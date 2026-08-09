@@ -2,11 +2,12 @@
 #include "atmesh-app/opengl.h"
 #include "atmesh-app/ui.h"
 
+#include <atmesh/common.h>
 #include <atmesh/log.h>
 #include <atil/platform/platform.h>
 
 int main() {
-    ATMESH_INFO("Launching AtMesh");
+    ATMESH_INFO("Launching " ATMESH_APP_NAME);
     
     // create window
     ATMESH_INFO("Creating window");
@@ -14,21 +15,18 @@ int main() {
     window_create_info_t window_info = {
         .width = 1600,
         .height = 1200,
-        .title = "AtMesh"
+        .title = ATMESH_APP_NAME
     };
 
     window_handle_t window;
-    if (!window_create(&window, &window_info)) {
-        ATMESH_ERROR("Failed to create window");
-        return 1;
-    }
+    if (!window_create(&window, &window_info)) return 1;
 
     // bind opengl context and init
     window_bind_opengl_context(window);
 
     ATMESH_INFO("Window created successfully");
 
-    opengl_init();
+    if (!opengl_init()) return 1;
     glClearColor(0,0,0,0);
     ATMESH_INFO("Initialized OpenGL");
 
@@ -37,15 +35,19 @@ int main() {
     ui_create(window, &ui);
 
     while (!window_should_close(window)) {
+        // clear
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // draw ui
         ui_begin_frame(ui);
         ui_draw(ui);
         ui_end_frame(ui);
         
+        // end rendering
         window_swap_buffers(window);
         window_system_poll_events();
 
+        // wait the next frame
         atil_platform_sleep_ms(16);
     }
 
