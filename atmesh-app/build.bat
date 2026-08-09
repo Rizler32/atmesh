@@ -29,7 +29,7 @@ set libIncludeFlags=-I"C:\Dev\C++\lib\glfw-3.4\include" ^
 set libBinFlags=-L"C:\Dev\C++\lib\atil-1.0.0\bin" ^
                 -L"C:\Dev\C++\lib\glad\lib-mingw-w64" ^
                 -L"C:\Dev\C++\lib\nuklear\bin"
-set libFlags=-lglad -lnk_glfw_gl3 -lnuklear -lglfw3dll -lopengl32 -lgdi32 -latil_sys
+set libFlags=-lglad -lnk_glfw_gl3 -lnuklear -lglfw3dll -lopengl32 -lgdi32 -latil_sys -lcomdlg32
 
 if not exist "%bindir%" mkdir "%bindir%"
 
