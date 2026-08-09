@@ -12,22 +12,32 @@
 #include <nuklear.h>
 #include <nuklear_glfw_gl3.h>
 
+#include "ui_menu.h"
+#include "ui_style.h"
+
 #include <stdlib.h>
 
 typedef struct ui_s {
     struct nk_context* ctx;
     struct nk_glfw glfw;
+    GLFWwindow* window;
 } ui_t;
 
 void ui_create(window_handle_t window, ui_handle_t* ui) {
     ui_t* internal = calloc(1, sizeof(ui_t));
     
-    internal->ctx = nk_glfw3_init(&internal->glfw, (GLFWwindow*)window_get_native_handle(window), NK_GLFW3_INSTALL_CALLBACKS);
+    internal->window = window_get_native_handle(window);
+    internal->ctx = nk_glfw3_init(&internal->glfw, internal->window, NK_GLFW3_INSTALL_CALLBACKS);
 
     struct nk_font_atlas* atlas;
     nk_glfw3_font_stash_begin(&internal->glfw, &atlas);
+
+    struct nk_font* font = nk_font_atlas_add_default(atlas, 23.0f, 0);
+
     nk_glfw3_font_stash_end(&internal->glfw);
 
+    nk_style_set_font(internal->ctx, &font->handle);
+    
     *ui = (ui_handle_t)internal;
 }
 
@@ -50,17 +60,15 @@ void ui_end_frame(ui_handle_t ui) {
 
 void ui_draw(ui_handle_t ui) {
     ui_t* internal = (ui_t*)ui;
+    struct nk_context* ctx = internal->ctx;
 
-    if (nk_begin(internal->ctx, "AtMesh", nk_rect(10, 10, 300, 200),
-                 NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_TITLE)) {
+    int fbw = 800, fbh = 600;
+    glfwGetFramebufferSize(internal->window, &fbw, &fbh);
 
-        nk_layout_row_dynamic(internal->ctx, 30, 1);
-        nk_label(internal->ctx, "Hello Nuklear!", NK_TEXT_LEFT);
-
-        nk_layout_row_dynamic(internal->ctx, 30, 1);
-        if (nk_button_label(internal->ctx, "Premi qui")) {
-            // logica
-        }
+    ui_apply_style(ctx);
+    
+    if (nk_begin(ctx, "AtMeshMain", nk_rect(0, 0, (float)fbw, (float)fbh), NK_WINDOW_BACKGROUND)) {
+        ui_menu_draw(ctx);
     }
-    nk_end(internal->ctx);
+    nk_end(ctx);
 }
