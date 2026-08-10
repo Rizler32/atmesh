@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <commdlg.h>
 
-int open_filechooser(char *out_path, int size, bool save_mode) {
+int open_filechooser(char *out_path, int size, bool save_mode, const char* filter) {
     OPENFILENAME ofn;
     ZeroMemory(&ofn, sizeof(ofn));
 
@@ -13,7 +13,7 @@ int open_filechooser(char *out_path, int size, bool save_mode) {
     ofn.lStructSize = sizeof(ofn);
     ofn.lpstrFile = out_path;
     ofn.nMaxFile = size;
-    ofn.lpstrFilter = "Tutti i file\0*.*\0";
+    ofn.lpstrFilter = filter;
     ofn.Flags = OFN_EXPLORER | OFN_PATHMUSTEXIST;
 
     return save_mode ? GetSaveFileName(&ofn)
