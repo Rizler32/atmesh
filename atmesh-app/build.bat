@@ -27,16 +27,18 @@ set libIncludeFlags=-I"C:\Dev\C++\lib\glfw-3.4\include" ^
                     -I"C:\Dev\C++\lib\glad\include" ^
                     -I"C:\Dev\C++\lib\nuklear\include" ^
                     -I"C:\Dev\C++\lib\libstl\include" ^
-                    -I"C:\Dev\C++\lib\tinyobjloader-c\include"
+                    -I"C:\Dev\C++\lib\tinyobjloader-c\include" ^
+                    -I"C:\Dev\C++\lib\cglm\include"
 
 set libBinFlags=-L"C:\Dev\C++\lib\glfw-3.4\lib-mingw-w64" ^
                 -L"C:\Dev\C++\lib\atil-1.0.0\bin" ^
                 -L"C:\Dev\C++\lib\glad\lib-mingw-w64" ^
                 -L"C:\Dev\C++\lib\nuklear\bin" ^
                 -L"C:\Dev\C++\lib\libstl\bin" ^
-                -L"C:\Dev\C++\lib\tinyobjloader-c\bin"
+                -L"C:\Dev\C++\lib\tinyobjloader-c\bin" ^
+                -L"C:\Dev\C++\lib\cglm\bin"
 
-set libFlags=-lglad -lnk_glfw_gl3 -lnuklear -lglfw3dll -lopengl32 -lgdi32 -latil_sys -lcomdlg32 -llibstl -ltinyobjloaderc
+set libFlags=-lglad -lnk_glfw_gl3 -lnuklear -lglfw3dll -lopengl32 -lgdi32 -latil_sys -lcomdlg32 -llibstl -ltinyobjloaderc -lcglm
 
 if not exist "%bindir%" mkdir "%bindir%"
 
