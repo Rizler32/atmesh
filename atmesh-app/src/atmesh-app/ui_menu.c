@@ -1,5 +1,5 @@
 #include "ui_menu.h"
-#include "events.h"
+#include "atmesh-app/events.h"
 
 void ui_menu_draw(struct nk_context* ctx) {
     const int row_height = 32;
