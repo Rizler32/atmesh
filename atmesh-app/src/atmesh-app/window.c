@@ -29,11 +29,13 @@ bool window_create(window_handle_t* window, window_create_info_t* info) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    // create window with size and pos
     GLFWwindow* internal = glfwCreateWindow(
         info->width, info->height,
         info->title,
         NULL, NULL
     );
+    glfwSetWindowPos(internal, info->x, info->y);
 
     if (!internal) {
         ATMESH_ERROR("Failed to create internal window");

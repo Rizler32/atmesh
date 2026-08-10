@@ -5,8 +5,8 @@
 #include <stdbool.h>
 
 typedef struct window_create_info_s {
-    int width;
-    int height;
+    int x, y;
+    int width, height;
     const char* title;
 } window_create_info_t;
 
